@@ -1,11 +1,7 @@
 class Solution {
     public int[] getSumAbsoluteDifferences(int[] nums) {
         // Initialize the total sum of all elements
-        int totalSum = 0;
-
-        for (int num : nums) {
-            totalSum += num;
-        }
+        int totalSum = Arrays.stream(nums).sum();
 
         // Initialize the sum of elements to the left
         int leftSum = 0;
