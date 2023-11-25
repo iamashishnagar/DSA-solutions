@@ -1,17 +1,35 @@
 class Solution {
     public int[] getSumAbsoluteDifferences(int[] nums) {
-        int length = nums.length;
-        int total = Arrays.stream(nums).sum();
-        int preSum = 0;
-        int[] result = new int[length];
+        // Initialize the total sum of all elements
+        int totalSum = 0;
 
-        for(int i = 0; i < length; i++){
-            int current = nums[i];
-            int currentIndex = i + 1;
-            preSum += current;
-            
-            result[i] = ((currentIndex * current) - preSum) + ((total - preSum) - ((length - currentIndex) * current)); // (left-part till current element) + (right-part)
+        for (int num : nums) {
+            totalSum += num;
         }
-        return result;
+
+        // Initialize the sum of elements to the left
+        int leftSum = 0;
+
+        // Initialize the sum of elements to the right
+        int rightSum = totalSum;
+
+        // Create an array to store the sum of absolute differences for each element
+        int[] absoluteDifferences = new int[nums.length];
+
+        for (int i = 0; i < nums.length; i++) {
+            // Get the current element
+            int currentElement = nums[i];
+
+            // Update the sum of elements to the right
+            rightSum -= currentElement;
+
+            // Calculate the sum of absolute differences for the current element
+            absoluteDifferences[i] = (currentElement * i - leftSum) + rightSum - (currentElement * (nums.length - i - 1));
+
+            // Update the sum of elements to the left
+            leftSum += currentElement;
+        }
+
+        return absoluteDifferences;
     }
 }
