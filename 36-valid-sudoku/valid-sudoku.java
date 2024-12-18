@@ -1,26 +1,23 @@
-public class Solution {
+class Solution {
     public boolean isValidSudoku(char[][] board) {
-        Map<Integer, Set<Character>> cols = new HashMap<>();
-        Map<Integer, Set<Character>> rows = new HashMap<>();
-        Map<String, Set<Character>> squares = new HashMap<>();
+        Set<String> set = new HashSet<>();
 
-        for (int r = 0; r < 9; r++) {
-            for (int c = 0; c < 9; c++) {
-                if (board[r][c] == '.') continue;
+        for(int i = 0; i < board.length; i++){
+            for(int j = 0; j < board.length; j++){
+                char current = board[i][j];
 
-                String squareKey = (r / 3) + "," + (c / 3);
+                if(current != '.'){
+                    String row = current + " row " + i;
+                    String col = current + " col " + j;
+                    String box = current + " box "+ i/3 + "-" + j/3;
 
-                if (rows.computeIfAbsent(r, k -> new HashSet<>()).contains(board[r][c]) ||
-                    cols.computeIfAbsent(c, k -> new HashSet<>()).contains(board[r][c]) ||
-                    squares.computeIfAbsent(squareKey, k -> new HashSet<>()).contains(board[r][c])) {
-                    return false;
+                    if(!set.add(row) || !set.add(col) || !set.add(box))
+                        return false;
                 }
-
-                rows.get(r).add(board[r][c]);
-                cols.get(c).add(board[r][c]);
-                squares.get(squareKey).add(board[r][c]);
             }
         }
+
         return true;
+        
     }
 }
