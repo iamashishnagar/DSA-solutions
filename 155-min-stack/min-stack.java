@@ -1,35 +1,40 @@
-import java.util.*;
 class MinStack {
-    private Stack<Integer> stack;
-    private Stack<Integer> minStack;
+    private Node head;
 
     public MinStack() {
-        stack = new Stack<>();
-        minStack = new Stack<>();
+        
     }
     
     public void push(int val) {
-        stack.push(val);
-        if(minStack.isEmpty() || val <= minStack.peek())
-            minStack.push(val);
-    }
-    
-    public void pop() {
-        if(!stack.isEmpty()){
-            int removed = stack.pop();
-            if(!minStack.isEmpty() && removed == minStack.peek())
-                minStack.pop();
+        if (head == null) {
+            head = new Node(val, val, null);
+        } else {
+            head = new Node(val, Math.min(val, head.min), head);
         }
     }
     
+    public void pop() {
+        head = head.next;
+    }
+    
     public int top() {
-        if(!stack.isEmpty()) return stack.peek();
-        throw new NoSuchElementException("Stack is empty");
+        return head.val;
     }
     
     public int getMin() {
-        if(!minStack.isEmpty()) return minStack.peek();
-        throw new NoSuchElementException("Stack is empty");
+        return head.min;
+    }
+
+    private class Node {
+        private int val;
+        private int min;
+        private Node next;
+
+        private Node (int val, int min, Node next) {
+            this.val = val;
+            this.min = min;
+            this.next = next;
+        }
     }
 }
 
