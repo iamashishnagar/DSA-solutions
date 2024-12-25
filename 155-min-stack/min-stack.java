@@ -23,11 +23,13 @@ class MinStack {
     }
     
     public int top() {
-        return stack.peek();
+        if(!stack.isEmpty()) return stack.peek();
+        throw new NoSuchElementException("Stack is empty");
     }
     
     public int getMin() {
-        return minStack.peek();
+        if(!minStack.isEmpty()) return minStack.peek();
+        throw new NoSuchElementException("Stack is empty");
     }
 }
 
