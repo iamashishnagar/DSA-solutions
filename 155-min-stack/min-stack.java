@@ -1,3 +1,4 @@
+import java.util.*;
 class MinStack {
     private Stack<Integer> stack;
     private Stack<Integer> minStack;
@@ -15,16 +16,18 @@ class MinStack {
     }
     
     public void pop() {
-        stack.pop();
-        minStack.pop();
+        if(!stack.isEmpty()) stack.pop();
+        if(!minStack.isEmpty()) minStack.pop();
     }
     
     public int top() {
-        return stack.peek();
+        if(!stack.isEmpty()) return stack.peek();
+        throw new NoSuchElementException("Stack is empty"); 
     }
     
     public int getMin() {
-        return minStack.peek();
+        if(!minStack.isEmpty()) return minStack.peek();
+        throw new NoSuchElementException("Stack is empty"); 
     }
 }
 
