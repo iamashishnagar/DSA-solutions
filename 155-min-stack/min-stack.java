@@ -12,22 +12,24 @@ class MinStack {
         stack.push(val);
         if(minStack.isEmpty() || val <= minStack.peek())
             minStack.push(val);
-        else minStack.push(minStack.peek());
     }
     
     public void pop() {
-        if(!stack.isEmpty()) stack.pop();
-        if(!minStack.isEmpty()) minStack.pop();
+        if(!stack.isEmpty()){
+            int removed = stack.pop();
+            if(!minStack.isEmpty() && removed == minStack.peek())
+                minStack.pop();
+        }
     }
     
     public int top() {
         if(!stack.isEmpty()) return stack.peek();
-        throw new NoSuchElementException("Stack is empty"); 
+        throw new NoSuchElementException("Stack is empty");
     }
     
     public int getMin() {
         if(!minStack.isEmpty()) return minStack.peek();
-        throw new NoSuchElementException("Stack is empty"); 
+        throw new NoSuchElementException("Stack is empty");
     }
 }
 
