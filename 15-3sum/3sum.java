@@ -3,14 +3,13 @@ class Solution {
         Arrays.sort(nums);
         List<List<Integer>> result = new ArrayList<>();
 
-        for(int i = 0; i < nums.length && nums[i] <= 0; i++){
+        for(int i = 0; i < nums.length - 2 && nums[i] <= 0; i++){
             if(i > 0 && nums[i] == nums[i - 1]) continue;
-
-            int left = i + 1;
-            int right = nums.length - 1;
+            int left = i + 1, right = nums.length - 1;
 
             while(left < right){
                 int sum = nums[i] + nums[left] + nums[right];
+
                 if(sum == 0){
                     result.add(Arrays.asList(nums[i], nums[left], nums[right]));
                     left++;
@@ -22,7 +21,7 @@ class Solution {
                 else left++;
             }
         }
-        
-        return result;
+
+        return result; 
     }
 }
