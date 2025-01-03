@@ -5,7 +5,7 @@ class Solution {
         for(String s : strs){
             char[] charArr = s.toCharArray();
             Arrays.sort(charArr);
-            String key = Arrays.toString(charArr);
+            String key = new String(charArr);
 
             group.putIfAbsent(key, new ArrayList());
             group.get(key).add(s);
