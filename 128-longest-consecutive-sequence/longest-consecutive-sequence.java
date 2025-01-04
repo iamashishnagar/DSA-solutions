@@ -9,7 +9,7 @@ class Solution {
         
         int longest = 0;
 
-        for(int num : set){
+        for(int num : set){ //set - not num
             if(set.contains(num - 1)) continue;
             int curr = num;
             int streak = 1;
