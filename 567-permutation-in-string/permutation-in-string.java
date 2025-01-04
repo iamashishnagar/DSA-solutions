@@ -1,29 +1,35 @@
 class Solution {
     public boolean checkInclusion(String s1, String s2) {
-        if(s1.length() > s2.length()) return false;
+        int m = s1.length();
+        int n = s2.length();
+        if(m > n) return false;
 
-        int[] s1Map = new int[26];
-        int[] s2Map = new int[26];
+        int[] s1Arr = new int[26];
+        int[] s2Arr = new int[26];
 
-        for(int i = 0; i < s1.length(); i++){
-            s1Map[s1.charAt(i) - 'a']++;
-            s2Map[s2.charAt(i) - 'a']++;
+        for(int i = 0; i < m; i++){
+            s1Arr[s1.charAt(i) - 'a']++;
+            s2Arr[s2.charAt(i) - 'a']++;
         }
 
-        for(int i = 0; i < s2.length() - s1.length(); i++){
-            if(isMatch(s1Map, s2Map)) return true;
+        int left = 0, right = m - 1;
 
-            s2Map[s2.charAt(i) - 'a']--;
-            s2Map[s2.charAt(i + s1.length()) - 'a']++;
+        for(int i = 0; i < n - m; i++){
+            if (match(s1Arr, s2Arr)) return true;
+
+            s2Arr[s2.charAt(i) - 'a']--;
+            s2Arr[s2.charAt(i + m) - 'a']++;
+
         }
-
-        return isMatch(s1Map, s2Map);
+        return match(s1Arr, s2Arr);
     }
 
-    private boolean isMatch(int[] s1Map, int[] s2Map){
-        for(int i = 0; i < 26; i++)
-            if(s1Map[i] != s2Map[i]) return false;
-        
+    private boolean match(int[] s1Arr, int[] s2Arr){
+        for(int i = 0; i < 26; i++){
+            if(s1Arr[i] != s2Arr[i])
+                return false;
+        }
+
         return true;
     }
 }
