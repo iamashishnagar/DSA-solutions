@@ -3,31 +3,32 @@ class Solution {
         int m = s.length();
         int n = t.length();
         if(m < n) return "";
-
-        int[] count = new int[128]; //ASCII
+        int[] tMap = new int[128];
         for(char c : t.toCharArray())
-            count[c]--;
-        
-        int min = Integer.MAX_VALUE, start = 0, left = 0;
+            tMap[c]++;
+
+        int need = n;
+        int have = 0;
+        int start = 0;
+        int min = Integer.MAX_VALUE;
+        int left = 0;
 
         for(int right = 0; right < m; right++){
-            if(count[s.charAt(right)] < 0) n--;
-            count[s.charAt(right)]++;
+            if(tMap[s.charAt(right)] > 0) have++;
+            tMap[s.charAt(right)]--;
 
-            while(n == 0){
-                int window = right - left + 1;
-                if(window < min){
-                    min = window;
+            while(have == need){
+                int length = right - left + 1;
+                if(length < min){
+                    min = length;
                     start = left;
                 }
-
-                count[s.charAt(left)]--;
-                if(count[s.charAt(left)] < 0) n++;
+                tMap[s.charAt(left)]++;
+                if(tMap[s.charAt(left)] > 0) have--; // Only decrement if it was part of t
                 left++;
             }
         }
 
-        return min == Integer.MAX_VALUE ? "" : s.substring(start, start + min);
-        
+        return (min == Integer.MAX_VALUE) ? "" : s.substring(start, start + min);      
     }
 }
