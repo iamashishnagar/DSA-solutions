@@ -1,24 +1,24 @@
 class Solution {
     public int characterReplacement(String s, int k) {
-        int n = s.length();
-        if(n == k) return k;
-        if( n < k) return 0;
+        Map<Character, Integer> map = new HashMap<>();
+        int left = 0, right = 0;
+        int longest = 0, maxFreq = 0;
 
-        int longest = 0, left = 0, maxF = 0;
-        HashMap<Character, Integer> map = new HashMap<>();
+        while(right < s.length()){
+            char rChar = s.charAt(right);
+            map.put(rChar, map.getOrDefault(rChar, 0) + 1);
+            maxFreq = Math.max(maxFreq, map.get(rChar));
 
-        for(int right = 0; right < n; right++){
-            map.put(s.charAt(right), map.getOrDefault(s.charAt(right), 0) + 1);
-            maxF = Math.max(maxF, map.get(s.charAt(right)));
-
-            if((right - left + 1) - maxF > k){
-                map.put(s.charAt(left), map.get(s.charAt(left)) - 1);
+            if((right - left + 1) - maxFreq > k){
+                char lChar = s.charAt(left);
+                map.put(lChar, map.getOrDefault(lChar, 0) - 1);
                 left++;
             }
 
             longest = Math.max(longest, right - left + 1);
-        }
+            right++;
+        } 
 
-        return longest;
+        return longest;       
     }
 }
