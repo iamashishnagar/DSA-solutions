@@ -17,10 +17,10 @@ class TimeMap {
         }
     }
 
-    HashMap<String, List<Pair>> map;
+    Map<String, List<Pair>> map;
 
     public TimeMap() {
-        map = new HashMap<>();       
+        map = new HashMap<>();
     }
     
     public void set(String key, String value, int timestamp) {
@@ -31,16 +31,16 @@ class TimeMap {
     public String get(String key, int timestamp) {
         if(!map.containsKey(key)) return "";
 
-        List<Pair> values = map.get(key);
-        int left = 0, right = values.size() - 1;
+        List<Pair> list = map.get(key);
+        int left = 0, right = list.size() - 1;
         String result = "";
-
+        
         while(left <= right){
             int mid = left + (right - left) / 2;
-            if(values.get(mid).getTimestamp() == timestamp)
-                return values.get(mid).getValue();
-            else if(values.get(mid).getTimestamp() < timestamp){
-                result = values.get(mid).getValue();
+            if(list.get(mid).getTimestamp() == timestamp)
+                return list.get(mid).getValue();
+            else if(list.get(mid).getTimestamp() < timestamp){
+                result = list.get(mid).getValue();
                 left = mid + 1;
             }
             else right = mid - 1;
