@@ -10,16 +10,16 @@
  */
 class Solution {
     public void reorderList(ListNode head) {
-        if(head == null || head.next == null) return;
-        //middle pointer (left half, right half)
-        ListNode slow = head, fast = head;
+        //find middle point to split list
+        ListNode slow = head;
+        ListNode fast = head;
         while(fast != null && fast.next != null){
             slow = slow.next;
             fast = fast.next.next;
         }
-        //reverse second half
         ListNode second = slow.next;
         slow.next = null;
+        //reverse the seocnd list
         ListNode prev = null;
         while(second != null){
             ListNode nextNode = second.next;
@@ -28,8 +28,8 @@ class Solution {
             second = nextNode;
         }
         second = prev;
-        //merge both lists
         ListNode first = head;
+        //merge both list
         while(second != null){
             ListNode firstNext = first.next;
             ListNode secondNext = second.next;
