@@ -24,7 +24,7 @@ class TimeMap {
     }
     
     public void set(String key, String value, int timestamp) {
-        map.putIfAbsent(key, new ArrayList<>());
+        map.computeIfAbsent(key, k -> new ArrayList<>());
         map.get(key).add(new Pair(timestamp, value));
     }
     
@@ -38,10 +38,7 @@ class TimeMap {
         while(left <= right){
             int mid = left + (right - left) / 2;
             int timestampPrev = list.get(mid).getTimestamp();
-
-            if(timestampPrev == timestamp)
-                return list.get(mid).getValue();
-            else if(timestampPrev < timestamp) {
+            if(timestampPrev <= timestamp) {
                 result = list.get(mid).getValue();
                 left = mid + 1;
             }
