@@ -4,9 +4,10 @@ class Solution {
 
         while(left <= right){
             int mid = left + (right - left) / 2;
+
             if(nums[mid] == target) return mid;
-            else if(nums[mid] > nums[right]){
-                if(nums[left] <= target && target < nums[mid]) 
+            else if(nums[left] <= nums[mid]){
+                if(nums[left] <= target && target < nums[mid])
                     right = mid - 1;
                 else left = mid + 1;
             }
