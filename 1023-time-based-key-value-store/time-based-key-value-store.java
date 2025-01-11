@@ -3,18 +3,18 @@ class TimeMap {
         int timestamp;
         String value;
 
-        public Pair(int timestamp, String value){
+        Pair(int timestamp, String value){
             this.timestamp = timestamp;
             this.value = value;
         }
 
-        public int getTimestamp(){
+        int getTimestamp(){
             return timestamp;
         }
 
-        public String getValue(){
+        String getValue(){
             return value;
-        }
+        }        
     }
 
     Map<String, List<Pair>> map;
@@ -34,12 +34,11 @@ class TimeMap {
         List<Pair> list = map.get(key);
         int left = 0, right = list.size() - 1;
         String result = "";
-        
+
         while(left <= right){
             int mid = left + (right - left) / 2;
-            if(list.get(mid).getTimestamp() == timestamp)
-                return list.get(mid).getValue();
-            else if(list.get(mid).getTimestamp() < timestamp){
+            int timestampPrev = list.get(mid).getTimestamp();
+            if(timestampPrev <= timestamp) {
                 result = list.get(mid).getValue();
                 left = mid + 1;
             }
