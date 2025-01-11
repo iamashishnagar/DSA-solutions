@@ -10,26 +10,27 @@
  */
 class Solution {
     public void reorderList(ListNode head) {
-        //find middle point to split list
-        ListNode slow = head;
-        ListNode fast = head;
+        //split
+        ListNode slow = head, fast = head;
         while(fast != null && fast.next != null){
             slow = slow.next;
             fast = fast.next.next;
         }
         ListNode second = slow.next;
         slow.next = null;
-        //reverse the seocnd list
+
+        //reverse
         ListNode prev = null;
         while(second != null){
-            ListNode nextNode = second.next;
+            ListNode next = second.next;
             second.next = prev;
             prev = second;
-            second = nextNode;
+            second = next;
         }
         second = prev;
+
+        //merge
         ListNode first = head;
-        //merge both list
         while(second != null){
             ListNode firstNext = first.next;
             ListNode secondNext = second.next;
@@ -40,5 +41,6 @@ class Solution {
             first = firstNext;
             second = secondNext;
         }
+
     }
 }
