@@ -14,7 +14,7 @@ class Solution {
                         left++;
                     }
                     while(left < right && nums[left] == nums[left - 1]);
-                    right--;
+                    //right--;
                 }
                 else if(sum < 0) left++;
                 else right--;
