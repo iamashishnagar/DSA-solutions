@@ -1,6 +1,6 @@
 class Solution {
     public List<String> generateParenthesis(int n) {
-        List<String> result = new ArrayList();
+        List<String> result = new ArrayList<>();
         backtrack(0, 0, n, result, "");
         return result;
     }
@@ -11,12 +11,10 @@ class Solution {
             return;
         }
 
-        if(openN < n){
+        if(openN < n)
             backtrack(openN + 1, closeN, n, result, current + "(");
-        }
 
-        if(closeN < openN){
+        if(closeN < openN)
             backtrack(openN, closeN + 1, n, result, current + ")");
-        }
     }
 }
