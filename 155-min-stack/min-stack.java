@@ -1,18 +1,17 @@
 import java.util.*;
 class MinStack {
-    Stack<Integer> stack;
-    Stack<Integer> minStack;
+    Deque<Integer> stack;
+    Deque<Integer> minStack;
 
     public MinStack() {
-        stack = new Stack<>();
-        minStack = new Stack<>();
+        stack = new ArrayDeque<>();
+        minStack = new ArrayDeque<>();
     }
     
     public void push(int val) {
         stack.push(val);
-        if(minStack.isEmpty() || minStack.peek() >= val){
+        if(minStack.isEmpty() || minStack.peek() >= val)
             minStack.push(val);
-        }
     }
     
     public void pop() {
@@ -24,14 +23,14 @@ class MinStack {
     }
     
     public int top() {
-        if(!stack.isEmpty())
+        if(!stack.isEmpty()) 
             return stack.peek();
         throw new NoSuchElementException("Stack is empty.");
     }
     
     public int getMin() {
-        if(!minStack.isEmpty())
-            return minStack.peek();
+        if(!minStack.isEmpty()) 
+            return minStack.peek(); 
         throw new NoSuchElementException("Stack is empty.");
     }
 }
