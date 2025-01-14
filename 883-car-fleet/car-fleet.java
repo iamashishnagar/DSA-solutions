@@ -5,23 +5,22 @@ class Solution {
 
         for(int i = 0; i < n; i++){
             pair[i][0] = position[i];
-            pair[i][1] = speed[i]; 
+            pair[i][1] = speed[i];
         }
-
+        
         Arrays.sort(pair, (a, b) -> b[0] - a[0]);
 
-        double preTime = (double) (target - pair[0][0]) / pair[0][1];
+        double prevTime = (double) (target - pair[0][0]) / pair[0][1];
         int fleet = 1;
-
-        for(int i = 0; i < n; i++){
+        
+        for(int i = 1; i < n; i++){
             double currTime = (double) (target - pair[i][0]) / pair[i][1];
-            if(currTime > preTime){
+            if(currTime > prevTime){
                 fleet++;
-                preTime = currTime;
+                prevTime = currTime;
             }
         }
 
         return fleet;
-        
     }
 }
