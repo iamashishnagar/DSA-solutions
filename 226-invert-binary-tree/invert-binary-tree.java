@@ -16,18 +16,13 @@
 class Solution {
     public TreeNode invertTree(TreeNode root) {
         if(root == null) return null;
-        Deque<TreeNode> queue = new ArrayDeque<>();
-        queue.offerLast(root);
 
-        while(!queue.isEmpty()){
-            TreeNode current = queue.pollFirst();
-            TreeNode right = current.right;
-            current.right = current.left;
-            current.left = right;
+        TreeNode right = root.right;
+        root.right = root.left;
+        root.left = right;
 
-            if(current.left != null) queue.offerLast(current.left);
-            if(current.right != null) queue.offerLast(current.right);
-        }
+        invertTree(root.left);
+        invertTree(root.right);
 
         return root;
     }
