@@ -16,17 +16,21 @@
 class Solution {
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> result = new ArrayList<>();
-        inorderHelper(root, result);
-        return result;
-    }
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        TreeNode current = root;
 
-    private void inorderHelper(TreeNode root, List<Integer> result){
-        if(root == null) return;
-        //left traversal
-        inorderHelper(root.left, result);
-        //current node
-        result.add(root.val);
-        //right traversal
-        inorderHelper(root.right, result);
+        while(current != null || !stack.isEmpty()){
+            while(current != null){
+                stack.push(current);
+                current = current.left;
+            }
+
+            current = stack.pop();
+            result.add(current.val);
+
+            current = current.right;
+        }
+
+        return result;
     }
 }
