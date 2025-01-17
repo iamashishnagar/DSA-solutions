@@ -10,6 +10,8 @@
 
 class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if(root == null || p == null || q == null)
+            return null;
         if(p.val > q.val){
             TreeNode temp = p;
             p = q;
