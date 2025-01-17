@@ -13,18 +13,21 @@ class Solution {
         ListNode dummy = new ListNode(0);
         ListNode current = dummy;
         int carry = 0;
+
         while(l1 != null || l2 != null || carry > 0){
-            int l1val = (l1 != null) ? l1.val : 0;
-            int l2val = (l2 != null) ? l2.val : 0;
-            int sum = l1val + l2val + carry;
+            int l1Val = (l1 == null) ? 0 : l1.val;
+            int l2Val = (l2 == null) ? 0 : l2.val;
+            int sum = l1Val + l2Val + carry;
+            ListNode node = new ListNode(sum % 10);
+            current.next = node;
+            current = current.next;
 
             carry = sum / 10;
-            current.next = new ListNode(sum % 10);
 
-            current = current.next;
             if(l1 != null) l1 = l1.next;
             if(l2 != null) l2 = l2.next;
         }
+
         return dummy.next;
     }
 }
