@@ -10,28 +10,28 @@
  */
 class Solution {
     public void reorderList(ListNode head) {
-        //split
-        ListNode slow = head, fast = head;
+        ListNode dummy = new ListNode(0, head);
+        ListNode slow = dummy, fast = dummy;
+        //find middle
         while(fast != null && fast.next != null){
             slow = slow.next;
             fast = fast.next.next;
         }
+        //split second half from first half
         ListNode second = slow.next;
         slow.next = null;
-
-        //reverse
         ListNode prev = null;
+        //reverse second half
         while(second != null){
             ListNode next = second.next;
             second.next = prev;
             prev = second;
             second = next;
         }
-        second = prev;
-
-        //merge
+        //merge both half
         ListNode first = head;
-        while(second != null){
+        second = prev;
+        while(second != null){ 
             ListNode firstNext = first.next;
             ListNode secondNext = second.next;
 
@@ -41,6 +41,5 @@ class Solution {
             first = firstNext;
             second = secondNext;
         }
-
     }
 }
