@@ -16,33 +16,36 @@ class Node {
 class Solution {
     public Node copyRandomList(Node head) {
         if(head == null) return null;
-        //append copied list with val and next along side original list
+        //interweave new copy with val and next
         Node current = head;
         while(current != null){
             Node newNode = new Node(current.val);
-            newNode.next = current.next;
+            Node oldNextNode = current.next;
             current.next = newNode;
-            current = current.next.next;
+            newNode.next = oldNextNode;
+            current = oldNextNode;
         }
-        //iterate through the new combined list to fill random number
+        //insert random
         current = head;
         while(current != null){
             if(current.random != null)
                 current.next.random = current.random.next;
             current = current.next.next;
         }
-        //split the list into original and copied
+        //split
         current = head;
-        Node copied = head.next;
+        Node copiedHead = head.next;
         while(current != null){
-            Node copiedNext = current.next;
-            current.next = copiedNext.next;
-            current = current.next;
-            if(copiedNext.next != null){
-                copiedNext.next = copiedNext.next.next;
-            }
+            Node copied = current.next;
+            Node oldNext = copied.next;
+
+            current.next = oldNext;
+            current = oldNext;
+
+            if(oldNext != null)
+                copied.next = oldNext.next;
         }
-        //return copied head  
-        return copied;
+        //return copied head
+        return copiedHead;
     }
 }
