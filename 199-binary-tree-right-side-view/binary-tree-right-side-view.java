@@ -22,20 +22,17 @@ class Solution {
 
         while(!queue.isEmpty()){
             int size = queue.size();
+            TreeNode rightMost = null;
             while(size > 0){
-                TreeNode current = queue.poll();;
-                if(size == 1)
-                    result.add(current.val);
-                
-                if(current.left != null)
-                    queue.add(current.left);
-                if(current.right != null)
-                    queue.add(current.right);  
+                TreeNode current = queue.poll();
+                rightMost = current;
+                if(current.left != null) queue.add(current.left);
+                if(current.right != null) queue.add(current.right);
 
                 size--;
             }
+            result.add(rightMost.val);
         }
-
         return result;
     }
 }
