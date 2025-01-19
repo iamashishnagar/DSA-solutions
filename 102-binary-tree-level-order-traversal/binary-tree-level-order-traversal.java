@@ -18,7 +18,7 @@ class Solution {
         List<List<Integer>> result = new ArrayList<>();
         if(root == null) return result;
         Queue<TreeNode> queue = new ArrayDeque<>();
-        queue.offer(root);
+        queue.add(root);
 
         while(!queue.isEmpty()){
             int size = queue.size();
@@ -27,8 +27,8 @@ class Solution {
                 TreeNode current = queue.poll();
                 values.add(current.val);
 
-                if(current.left != null) queue.offer(current.left);
-                if(current.right != null) queue.offer(current.right);
+                if(current.left != null) queue.add(current.left);
+                if(current.right != null) queue.add(current.right);
 
                 size--;
             }
