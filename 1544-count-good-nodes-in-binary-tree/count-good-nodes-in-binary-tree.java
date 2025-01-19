@@ -27,8 +27,8 @@ class Solution {
             maxSoFar = Math.max(maxSoFar, node.val);
         }
 
-        count += countGoodNodes(node.left, maxSoFar);
-        count += countGoodNodes(node.right, maxSoFar);
+        count += (node.left != null) ? countGoodNodes(node.left, maxSoFar) : 0;
+        count += (node.right != null) ? countGoodNodes(node.right, maxSoFar) : 0;
 
         return count;
     }
