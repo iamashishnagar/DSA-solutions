@@ -16,15 +16,16 @@
 class Solution {
     int count = 0;
     int result = -1;
+
     public int kthSmallest(TreeNode root, int k) {
-        inOrderTraversal(root, k);
+        inorder(root, k);
         return result;
     }
 
-    private void inOrderTraversal(TreeNode node, int k){
+    private void inorder(TreeNode node, int k){
         if(node == null) return;
 
-        inOrderTraversal(node.left, k);
+        inorder(node.left, k);
 
         count++;
         if(count == k){
@@ -32,6 +33,6 @@ class Solution {
             return;
         }
 
-        inOrderTraversal(node.right, k);
+        inorder(node.right, k);
     }
 }
