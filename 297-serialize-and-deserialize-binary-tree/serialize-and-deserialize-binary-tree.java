@@ -12,38 +12,38 @@ public class Codec {
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
         StringBuilder encoded = new StringBuilder();
-        preorderTraversal(root, encoded);
+        encodeTree(root, encoded);
         return encoded.toString();        
     }
 
-    private void preorderTraversal(TreeNode node, StringBuilder encoded){
+    private void encodeTree(TreeNode node, StringBuilder encoded){
         if(node == null){
             encoded.append("#,");
             return;
         }
-
+        
         encoded.append(node.val).append(",");
 
-        preorderTraversal(node.left, encoded);
-        preorderTraversal(node.right, encoded);
+        encodeTree(node.left, encoded);
+        encodeTree(node.right, encoded);
     }
 
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
         String[] values = data.split(",");
         Queue<String> queue = new ArrayDeque<>(Arrays.asList(values));
-        return buildTree(queue);
+        return decodeTree(queue);
     }
 
-    private TreeNode buildTree(Queue<String> queue){
+    private TreeNode decodeTree(Queue<String> queue){
         if(queue.isEmpty()) return null;
-        
+
         String value = queue.poll();
         if(value.equals("#")) return null;
 
         TreeNode node = new TreeNode(Integer.parseInt(value));
-        node.left = buildTree(queue);
-        node.right = buildTree(queue);
+        node.left = decodeTree(queue);
+        node.right = decodeTree(queue);
 
         return node;
     }
