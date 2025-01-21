@@ -26,9 +26,10 @@ class Solution {
 
     private TreeNode buildTreeHelper(int[] preorder, int left, int right){
         if(left > right) return null;
-
+        
         int rootValue = preorder[preIndex++];
         TreeNode root = new TreeNode(rootValue);
+        
         int mid = inorderMap.get(rootValue);
 
         root.left = buildTreeHelper(preorder, left, mid - 1);
