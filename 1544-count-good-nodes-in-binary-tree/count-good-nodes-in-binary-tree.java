@@ -14,22 +14,22 @@
  * }
  */
 class Solution {
+    int count = 0;
+
     public int goodNodes(TreeNode root) {
-        return countGoodNodes(root, root.val);
+        preorder(root, root.val);
+        return count;
     }
 
-    private int countGoodNodes(TreeNode node, int maxSoFar){
-        int count = 0;
-        if(node == null) return count;
+    private void preorder(TreeNode node, int maxSoFar){
+        if(node == null) return;
 
         if(node.val >= maxSoFar){
             count++;
             maxSoFar = Math.max(maxSoFar, node.val);
         }
 
-        count += (node.left != null) ? countGoodNodes(node.left, maxSoFar) : 0;
-        count += (node.right != null) ? countGoodNodes(node.right, maxSoFar) : 0;
-
-        return count;
+        preorder(node.left, maxSoFar);
+        preorder(node.right, maxSoFar);
     }
 }
