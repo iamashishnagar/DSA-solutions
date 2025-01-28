@@ -31,19 +31,19 @@ class WordDictionary {
 
     private boolean searchHelper(String word, TrieNode node, int index){
         if(node == null) return false;
-        if(index == word.length()) return node.isWord;
-
-        char curr = word.charAt(index);
-        if(curr == '.'){
-            for(TrieNode child : node.children){
+        if(index == word.length())
+            return node.isWord;
+        
+        char letter = word.charAt(index);
+        if(letter == '.'){
+            for(TrieNode child : node.children)
                 if(child != null && searchHelper(word, child, index + 1))
                     return true;
-            }
+            
             return false;
         }
         else{
-            int currIndex = curr - 'a';
-            return searchHelper(word, node.children[currIndex], index + 1);
+            return searchHelper(word, node.children[letter - 'a'], index + 1);
         }
     }
 }
