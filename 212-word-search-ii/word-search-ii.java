@@ -5,33 +5,35 @@ class Solution {
             trie.insert(word);
 
         List<String> result = new ArrayList<>();
-
+        
         for(int i = 0; i < board.length; i++){
             for(int j = 0; j < board[0].length; j++){
-                backtrack(i, j, board, trie.root, result);
+                backtrack(i, j, trie.root, board, result);
             }
         }
+
         return result;
     }
 
-    private void backtrack(int row, int col, char[][] board, TrieNode node, List<String> result){
-        if(row < 0 || col < 0 || row >= board.length || col >= board[0].length || board[row][col] == '#') return;
+    private void backtrack(int row, int col, TrieNode node, char[][] board, List<String> result){
+        if(row < 0 || col < 0 || row >= board.length || col >= board[0].length || board[row][col] == '#' || node == null) return;
 
         char letter = board[row][col];
-        TrieNode childNode = node.children[letter - 'a'];
-        if(childNode == null) return;
+        TrieNode child = node.children[letter - 'a'];
+        if(child == null) return;
 
-        if(childNode.word != null){
-            result.add(childNode.word);
-            childNode.word = null; //to avoid duplicates
+        if(child.word != null){
+            result.add(child.word);
+            child.word = null;
         }
 
         board[row][col] = '#';
+        int[] rowOffsets = {-1, 1, 0, 0}; //up, down, left, right
+        int[] colOffsets = {0, 0, -1, 1};
 
-        int[] rowOffsets = {0, 0, -1, 1}; //left, right, up, down
-        int[] colOffsets = {-1, 1, 0, 0};
-        for(int i = 0; i < 4; i++)
-            backtrack(row + rowOffsets[i], col + colOffsets[i], board, childNode, result);
+        for(int i = 0; i < 4; i++){
+            backtrack(row + rowOffsets[i], col + colOffsets[i], child, board, result);
+        }
 
         board[row][col] = letter;
     }
