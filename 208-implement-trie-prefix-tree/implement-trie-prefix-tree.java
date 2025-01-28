@@ -5,7 +5,6 @@ class Trie {
 
         TrieNode(){
             children = new TrieNode[26];
-            isWord =  false;
         }
     }
 
