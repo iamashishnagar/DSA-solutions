@@ -1,7 +1,6 @@
 class Solution {
     public List<List<String>> solveNQueens(int n) {
         List<List<String>> result = new ArrayList<>();
-
         Set<Integer> cols = new HashSet<>();
         Set<Integer> posDia = new HashSet<>();
         Set<Integer> negDia = new HashSet<>();
@@ -11,6 +10,7 @@ class Solution {
             Arrays.fill(row, '.');
         
         backtrack(0, n, board, cols, posDia, negDia, result);
+
         return result;
     }
 
@@ -22,7 +22,7 @@ class Solution {
             result.add(tempList);
             return;
         }
-
+        
         for(int col = 0; col < n; col++){
             if(cols.contains(col) || posDia.contains(row + col) || negDia.contains(row - col))
                 continue;
