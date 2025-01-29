@@ -7,7 +7,6 @@ class Solution {
 
     private void backtrack(int index, int[] nums, List<List<Integer>> result, List<Integer> current){
         result.add(new ArrayList<>(current));
-        if(index >= nums.length) return;
 
         for(int i = index; i < nums.length; i++){
             current.add(nums[i]);
