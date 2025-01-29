@@ -25,16 +25,14 @@ class Twitter {
     
     public List<Integer> getNewsFeed(int userId) {
         Queue<Tweet> maxHeap = new PriorityQueue<>((a, b) -> b.timestamp - a.timestamp);
-
         if(tweetMap.containsKey(userId))
             maxHeap.addAll(tweetMap.get(userId));
-        
-        if(followMap.containsKey(userId)){
+
+        if(followMap.containsKey(userId))
             for(int followeeId : followMap.get(userId))
                 if(tweetMap.containsKey(followeeId))
                     maxHeap.addAll(tweetMap.get(followeeId));
-        }
-
+        
         List<Integer> newsFeed = new ArrayList<>();
         while(!maxHeap.isEmpty() && newsFeed.size() < 10)
             newsFeed.add(maxHeap.poll().tweetId);
@@ -51,7 +49,7 @@ class Twitter {
     
     public void unfollow(int followerId, int followeeId) {
         if(followerId != followeeId && followMap.containsKey(followerId))
-            followMap.get(followerId).remove(followeeId);        
+            followMap.get(followerId).remove(followeeId);
     }
 }
 
