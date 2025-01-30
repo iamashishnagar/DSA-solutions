@@ -6,17 +6,16 @@ class Solution {
         
         Queue<Integer> maxHeap = new PriorityQueue<>((a, b) -> b - a);
         maxHeap.addAll(freqMap.values());
+        
+        int lastMax = 0;
+        if(!maxHeap.isEmpty())
+            lastMax = maxHeap.poll();
+        int maxFreqCount = 1;
+        while(!maxHeap.isEmpty() && maxHeap.poll() == lastMax)
+            maxFreqCount++;
 
-        int maxFreq = maxHeap.poll();
-        int countMaxFreqTasks = 1;
+        int leastCycle = ((lastMax - 1) * (n + 1)) + maxFreqCount;
 
-        while(!maxHeap.isEmpty() && maxHeap.peek() == maxFreq){
-            maxHeap.poll();
-            countMaxFreqTasks++;
-        }
-
-        int leastCycles = (maxFreq - 1) * (n + 1) + countMaxFreqTasks;
-
-        return Math.max(leastCycles, tasks.length);
+        return Math.max(leastCycle, tasks.length);
     }
 }
