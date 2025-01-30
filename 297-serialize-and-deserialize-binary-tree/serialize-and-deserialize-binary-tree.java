@@ -13,7 +13,7 @@ public class Codec {
     public String serialize(TreeNode root) {
         StringBuilder encoded = new StringBuilder();
         encodeTree(root, encoded);
-        return encoded.toString();        
+        return encoded.toString();
     }
 
     private void encodeTree(TreeNode node, StringBuilder encoded){
@@ -21,9 +21,7 @@ public class Codec {
             encoded.append("#,");
             return;
         }
-        
         encoded.append(node.val).append(",");
-
         encodeTree(node.left, encoded);
         encodeTree(node.right, encoded);
     }
@@ -38,10 +36,10 @@ public class Codec {
     private TreeNode decodeTree(Queue<String> queue){
         if(queue.isEmpty()) return null;
 
-        String value = queue.poll();
-        if(value.equals("#")) return null;
+        String current = queue.poll();
+        if(current.equals("#")) return null;
 
-        TreeNode node = new TreeNode(Integer.parseInt(value));
+        TreeNode node = new TreeNode(Integer.parseInt(current));
         node.left = decodeTree(queue);
         node.right = decodeTree(queue);
 
