@@ -14,21 +14,18 @@
  * }
  */
 class Solution {
-    int count = 0;
-
+    int goodCount = 0;
     public int goodNodes(TreeNode root) {
         preorder(root, root.val);
-        return count;
+        return goodCount;
     }
 
     private void preorder(TreeNode node, int maxSoFar){
         if(node == null) return;
-
-        if(node.val >= maxSoFar){
-            count++;
-            maxSoFar = Math.max(maxSoFar, node.val);
-        }
-
+        if(node.val >= maxSoFar)
+            goodCount++;
+        
+        maxSoFar = Math.max(maxSoFar, node.val);
         preorder(node.left, maxSoFar);
         preorder(node.right, maxSoFar);
     }
