@@ -15,21 +15,20 @@
  */
 class Solution {
     Map<Integer, Integer> inorderMap = new HashMap<>();
-    int preIndex = 0;
+    int preorderIndex = 0;
 
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         for(int i = 0; i < inorder.length; i++)
             inorderMap.put(inorder[i], i);
-        
+
         return buildTreeHelper(preorder, 0, preorder.length - 1);
     }
 
     private TreeNode buildTreeHelper(int[] preorder, int left, int right){
         if(left > right) return null;
-        
-        int rootValue = preorder[preIndex++];
+
+        int rootValue = preorder[preorderIndex++];
         TreeNode root = new TreeNode(rootValue);
-        
         int mid = inorderMap.get(rootValue);
 
         root.left = buildTreeHelper(preorder, left, mid - 1);
