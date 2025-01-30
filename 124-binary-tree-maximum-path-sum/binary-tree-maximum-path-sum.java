@@ -24,12 +24,12 @@ class Solution {
     private int postorder(TreeNode node){
         if(node == null) return 0;
 
-        int leftSum = Math.max(postorder(node.left), 0);
-        int rightSum = Math.max(postorder(node.right), 0);
+        int leftMax = Math.max(postorder(node.left), 0);
+        int rightMax = Math.max(postorder(node.right), 0);
 
-        int totalSum = node.val + leftSum + rightSum;
+        int totalSum = node.val + leftMax + rightMax;
         maxSum = Math.max(maxSum, totalSum);
 
-        return node.val + Math.max(leftSum, rightSum);
+        return node.val + Math.max(leftMax, rightMax);
     }
 }
