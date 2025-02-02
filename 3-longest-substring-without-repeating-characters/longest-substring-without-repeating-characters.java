@@ -5,13 +5,16 @@ class Solution {
         int left = 0, right = 0;
         int longest = 0;
         while(right < s.length()){
-            while(set.contains(s.charAt(right))){
-                set.remove(s.charAt(left++));
+            char rChar = s.charAt(right);
+            while(set.contains(rChar)){
+                longest = Math.max(longest, right - left);
+                char lChar = s.charAt(left);
+                set.remove(lChar);
+                left++;                
             }
-            set.add(s.charAt(right));
-            longest = Math.max(longest, right - left + 1);
+            set.add(rChar);
             right++;
         }
-        return longest;
+        return Math.max(longest, right - left);
     }
 }
