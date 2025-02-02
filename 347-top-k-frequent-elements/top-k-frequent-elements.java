@@ -4,16 +4,16 @@ class Solution {
         for(int num : nums)
             freqMap.put(num, freqMap.getOrDefault(num, 0) + 1);
         
-        Queue<Integer> maxHeap = new PriorityQueue<>((a, b) -> freqMap.get(a) - freqMap.get(b));
+        Queue<Integer> minHeap = new PriorityQueue<>((a, b) -> freqMap.get(a) - freqMap.get(b));
         for(int key : freqMap.keySet()){
-            maxHeap.offer(key);
-            if(maxHeap.size() > k)
-                maxHeap.poll();
+            minHeap.offer(key);
+            if(minHeap.size() > k)
+                minHeap.poll();
         }
 
         int[] result = new int[k];
-        for(int i = 0; i < k && !maxHeap.isEmpty(); i++)
-            result[i] = maxHeap.poll();
+        for(int i = 0; i < k && !minHeap.isEmpty(); i++)
+            result[i] = minHeap.poll();
 
         return result;
     }
