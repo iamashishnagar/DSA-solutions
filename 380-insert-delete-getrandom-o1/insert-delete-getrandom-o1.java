@@ -19,11 +19,11 @@ class RandomizedSet {
         int randomIndex = random.nextInt(set.size());
         Iterator<Integer> iterator = set.iterator();
         while(randomIndex > 0){
-            if(iterator.hasNext()) iterator.next();
+            iterator.next();
             randomIndex--;
         }
 
-        return (iterator.hasNext()) ? iterator.next() : -1;
+        return iterator.next();
     }
 }
 
