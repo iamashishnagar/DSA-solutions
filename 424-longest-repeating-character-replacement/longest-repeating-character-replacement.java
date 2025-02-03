@@ -2,9 +2,8 @@ class Solution {
     public int characterReplacement(String s, int k) {
         int longest = 0;
         if(s.length() == 0) return longest;
+        int left = 0, right = 0, maxFreq = 0;
         Map<Character, Integer> freqMap = new HashMap<>();
-        int left = 0, right = 0;
-        int maxFreq = 0;
         while(right < s.length()){
             char rChar = s.charAt(right);
             freqMap.put(rChar, freqMap.getOrDefault(rChar, 0) + 1);
@@ -16,7 +15,7 @@ class Solution {
                 left++;
             }
             longest = Math.max(longest, right - left + 1);
-            right++;            
+            right++;
         }
         return longest;
     }
