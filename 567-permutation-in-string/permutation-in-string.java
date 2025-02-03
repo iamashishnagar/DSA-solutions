@@ -7,11 +7,11 @@ class Solution {
             s1Count[s1.charAt(i) - 'a']++;
             s2Count[s2.charAt(i) - 'a']++;
         }
-        int left = 0, right = s1.length() - 1;
-        while(right < s2.length() - 1){
+        int left = 0, right = s1.length();
+        while(right < s2.length()){
             if(isMatch(s1Count, s2Count)) return true;
             s2Count[s2.charAt(left++) - 'a']--;
-            s2Count[s2.charAt(++right) - 'a']++;
+            s2Count[s2.charAt(right++) - 'a']++;
         }
         return isMatch(s1Count, s2Count);
     }
