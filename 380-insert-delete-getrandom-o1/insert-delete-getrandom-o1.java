@@ -17,11 +17,12 @@ class RandomizedSet {
     
     public int getRandom() {
         int randomIndex = random.nextInt(set.size());
-        Iterator<Integer> it = set.iterator();
-        for (int i = 0; i < randomIndex; i++) {
-            it.next();
+        Iterator<Integer> itr = set.iterator();
+        while(randomIndex > 0){
+            itr.next();
+            randomIndex--;
         }
-        return it.next();
+        return itr.next();
     }
 }
 
