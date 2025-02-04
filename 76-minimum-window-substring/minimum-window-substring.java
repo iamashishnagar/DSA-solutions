@@ -2,15 +2,16 @@ class Solution {
     public String minWindow(String s, String t) {
         int m = s.length(), n = t.length();
         if(n > m) return "";
+
         int[] count = new int[128];
         for(char c : t.toCharArray())
             count[c]++;
-        
-        int left = 0, right = 0, start = 0;
+
         int minLength = Integer.MAX_VALUE;
+        int left = 0, right = 0, start = 0;
         int need = n, have = 0;
 
-        while(right < m){
+        for(; right < m; right++){
             if(count[s.charAt(right)] > 0) have++;
             count[s.charAt(right)]--;
 
@@ -25,7 +26,6 @@ class Solution {
                 count[s.charAt(left)]++;
                 left++;
             }
-            right++;
         }
 
         return (minLength == Integer.MAX_VALUE)
