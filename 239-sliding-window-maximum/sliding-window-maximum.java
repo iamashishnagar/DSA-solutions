@@ -13,7 +13,7 @@ class Solution {
             while(!indexQ.isEmpty() && nums[indexQ.peekLast()] < nums[right])
                 indexQ.pollLast();
             
-            indexQ.offerLast(right);
+            indexQ.offer(right);
 
             if(right + 1 >= k) result[left] = nums[indexQ.peek()];
         }
