@@ -3,26 +3,28 @@ class Solution {
         Deque<Integer> stack = new ArrayDeque<>();
         for(String token : tokens){
             switch(token){
-                case "+": 
+                case "+":
                         stack.push(stack.pop() + stack.pop());
                         break;
-                case "-": 
-                        int a = stack.pop(), b = stack.pop();
+                case "-":
+                        int a = stack.pop();
+                        int b = stack.pop();
                         stack.push(b - a);
                         break;
-                case "*": 
+                case "*":
                         stack.push(stack.pop() * stack.pop());
                         break;
-                case "/": 
-                        a = stack.pop(); b = stack.pop();
+                case "/":
+                        a = stack.pop();
+                        b = stack.pop();
                         stack.push(b / a);
                         break;
                 default:
                         stack.push(Integer.parseInt(token));
                         break;
-                
             }
         }
-        return stack.pop();
+
+        return stack.peek();
     }
 }
