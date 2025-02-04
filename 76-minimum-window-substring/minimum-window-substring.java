@@ -5,6 +5,7 @@ class Solution {
         int[] count = new int[128];
         for(char c : t.toCharArray())
             count[c]++;
+        
         int left = 0, right = 0, start = 0;
         int minLength = Integer.MAX_VALUE;
         int need = n, have = 0;
@@ -19,13 +20,16 @@ class Solution {
                     minLength = window;
                     start = left;
                 }
+
                 if(count[s.charAt(left)] == 0) have--;
                 count[s.charAt(left)]++;
-                left++;                
+                left++;
             }
             right++;
         }
 
-        return (minLength == Integer.MAX_VALUE) ? "" : s.substring(start, start + minLength);
+        return (minLength == Integer.MAX_VALUE)
+                ? ""
+                : s.substring(start, start + minLength);
     }
 }
