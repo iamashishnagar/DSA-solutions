@@ -1,33 +1,30 @@
 class Solution {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        int m = nums1.length;
-        int n = nums2.length;
-        if(m == 0 && n == 0) return 0.0;
-        if(m > n) return findMedianSortedArrays(nums2, nums1);
+        if(nums1.length > nums2.length)
+            return findMedianSortedArrays(nums2, nums1);
 
-        int total = m + n;
-        int half = (total + 1) / 2;
+        int m = nums1.length, n = nums2.length;
+        int leftHalf = (m + n + 1) / 2;
         int left = 0, right = m;
 
         while(left <= right){
             int mid1 = left + (right - left) / 2;
-            int mid2 = half - mid1;
+            int mid2 = leftHalf - mid1;
 
-            int left1Max = mid1 == 0 ? Integer.MIN_VALUE : nums1[mid1 - 1];
-            int left2Max = mid2 == 0 ? Integer.MIN_VALUE : nums2[mid2 - 1];
-            int right1Min = mid1 == m ? Integer.MAX_VALUE : nums1[mid1];
-            int right2Min = mid2 == n ? Integer.MAX_VALUE : nums2[mid2];
+            int maxLeft1 = mid1 > 0 ? nums1[mid1 - 1] : Integer.MIN_VALUE;
+            int minRight1 = mid1 < m ? nums1[mid1] : Integer.MAX_VALUE;
+            int maxLeft2 = mid2 > 0 ? nums2[mid2 - 1] : Integer.MIN_VALUE;
+            int minRight2 = mid2 < n ? nums2[mid2] : Integer.MAX_VALUE;
 
-            if(left1Max <= right2Min && left2Max <= right1Min){
-                if(total % 2 == 0)
-                    return (Math.max(left1Max, left2Max) + Math.min(right1Min, right2Min)) / 2.0;
-                else return Math.max(left1Max, left2Max);
+            if(maxLeft1 <= minRight2 && maxLeft2 <= minRight1){
+                return (m + n) % 2 != 0
+                    ? Math.max(maxLeft1, maxLeft2)
+                    : (Math.max(maxLeft1, maxLeft2) + Math.min(minRight1, minRight2)) / 2.0;
             }
-            else if(left1Max > right2Min) right = mid1 - 1;
+            else if(maxLeft1 > minRight2) right = mid1 - 1;
             else left = mid1 + 1;
-
         }
 
-        return 0.0;
+        throw new IllegalArgumentException("Input arrays are not sorted");
     }
 }
