@@ -1,6 +1,6 @@
 class RandomizedSet {
     List<Integer> list;
-    Map<Integer, Integer> map;
+    HashMap<Integer, Integer> map;
     Random random;
 
     public RandomizedSet() {
@@ -11,7 +11,6 @@ class RandomizedSet {
     
     public boolean insert(int val) {
         if(map.containsKey(val)) return false;
-
         list.add(val);
         map.put(val, list.size() - 1);
         return true;
@@ -24,16 +23,16 @@ class RandomizedSet {
         int lastElement = list.get(list.size() - 1);
 
         list.set(indexToRemove, lastElement);
-        map.put(lastElement, indexToRemove);
-
         list.remove(list.size() - 1);
+
+        map.put(lastElement, indexToRemove);
         map.remove(val);
+
         return true;
     }
     
     public int getRandom() {
-        int randomIndex = random.nextInt(list.size());
-        return list.get(randomIndex);
+        return list.get(random.nextInt(list.size()));
     }
 }
 
