@@ -1,27 +1,31 @@
 class Solution {
-    int count = 0;
-    //Set<String> visited = new HashSet<>();
     int[][] directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
 
     public int numIslands(char[][] grid) {
+        int total = 0;
+        if(grid.length == 0) return total;
+
         for(int i = 0; i < grid.length; i++){
             for(int j = 0; j < grid[0].length; j++){
                 if(grid[i][j] == '1'){
-                    count++;
-                    countIslands(grid, i, j);
+                    total++;
+                    dfs(i, j, grid);
                 }
             }
         }
-        return count;
+
+        return total;
     }
 
-    private void countIslands(char[][] grid, int row, int col){
-        if(row < 0 || col < 0 || row >= grid.length || col >= grid[0].length || grid[row][col] == '0')
-            return;
+    private void dfs(int i, int j, char[][] grid){
+        grid[i][j] = '0';
 
-        grid[row][col] = '0';
+        for(int[] dir : directions){
+            int row = i + dir[0];
+            int col = j + dir[1];
 
-        for(int[] dir : directions)
-            countIslands(grid, row + dir[0], col + dir[1]);
+            if(row >= 0 && col >= 0 && row < grid.length && col < grid[0].length && grid[row][col] != '0')
+                dfs(row, col, grid);
+        }
     }
 }
