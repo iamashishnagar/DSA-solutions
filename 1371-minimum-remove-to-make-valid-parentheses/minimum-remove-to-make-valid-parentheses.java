@@ -11,17 +11,13 @@ class Solution {
                 else indexToRemove.add(i);
             }
         }
-
-        while(!stack.isEmpty()){
+         while(!stack.isEmpty())
             indexToRemove.add(stack.pop());
-        }
 
         StringBuilder result = new StringBuilder();
-
-        for(int i = 0; i < s.length(); i++){
+        for(int i = 0; i < s.length(); i++)
             if(!indexToRemove.contains(i))
                 result.append(s.charAt(i));
-        }
 
         return result.toString();
     }
