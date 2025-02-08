@@ -10,7 +10,7 @@ class Solution {
             preMap.get(pre[0]).add(pre[1]);
         
         for(int i = 0; i < numCourses; i++)
-            if(!canFinishCourse(i))
+            if(!canFinishCourse(i)) 
                 return false;
         
         return true;
@@ -22,9 +22,10 @@ class Solution {
 
         visiting.add(course);
 
-        for(int pre : preMap.get(course))
+        for(int pre : preMap.get(course)){
             if(!canFinishCourse(pre))
                 return false;
+        }
 
         visiting.remove(course);
         preMap.put(course, new ArrayList<>());
