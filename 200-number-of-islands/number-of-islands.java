@@ -24,7 +24,7 @@ class Solution {
             int row = i + dir[0];
             int col = j + dir[1];
 
-            if(row >= 0 && col >= 0 && row < grid.length && col < grid[0].length && grid[row][col] != '0')
+            if(row >= 0 && col >= 0 && row < grid.length && col < grid[0].length && grid[row][col] == '1')
                 dfs(row, col, grid);
         }
     }
