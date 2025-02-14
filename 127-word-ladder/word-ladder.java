@@ -11,23 +11,19 @@ class Solution {
             int steps = pair.getValue();
 
             if(word.equals(endWord)) return steps;
-
             char[] letters = word.toCharArray();
             for(int i = 0; i < letters.length; i++){
                 char original = letters[i];
-
                 for(char c = 'a'; c <= 'z'; c++){
-                    if(c != original){
-                        letters[i] = c;
-                        String transformed = new String(letters);
+                    if(c == original) continue;
 
-                        if(set.contains(transformed)){
-                            queue.offer(new Pair<>(transformed, steps + 1));
-                            set.remove(transformed);
-                        }
+                    letters[i] = c;
+                    String newWord = new String(letters);
+                    if(set.contains(newWord)){
+                        queue.offer(new Pair<>(newWord, steps + 1));
+                        set.remove(newWord);
                     }
                 }
-
                 letters[i] = original;
             }
         }
