@@ -18,30 +18,32 @@ class Solution {
             if(kthNode != null){
                 ListNode groupStart = lastGroupEnd.next;
                 ListNode nextGroupStart = kthNode.next;
-
+                
+                //reverse
                 reverseGroup(groupStart, kthNode);
-
+                
+                //relink
                 lastGroupEnd.next = kthNode;
                 groupStart.next = nextGroupStart;
                 lastGroupEnd = groupStart;
             }
             else break;
         }
-
         return dummy.next;
     }
 
     private ListNode getKthNode(ListNode start, int k){
-        while(k > 0){
-            if(start != null)
-                start = start.next;
-            k--;            
+        while(k > 0 && start != null){
+            start = start.next;
+            k--;
         }
+
         return start;
     }
 
     private void reverseGroup(ListNode start, ListNode end){
         ListNode prev = null;
+
         while(prev != end){
             ListNode next = start.next;
             start.next = prev;
