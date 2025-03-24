@@ -1,20 +1,20 @@
 class MyHashSet {
-    private boolean[] data;
+    List<Integer> data;
 
     public MyHashSet() {
-        data = new boolean[1000001];
+        data = new ArrayList<>();
     }
     
     public void add(int key) {
-        data[key] = true;
+        if(!data.contains(key)) data.add(key);
     }
     
     public void remove(int key) {
-        data[key] = false;
+        if(data.contains(key)) data.remove(Integer.valueOf(key));
     }
     
     public boolean contains(int key) {
-        return data[key];
+        return data.contains(key);
     }
 }
 
