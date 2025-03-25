@@ -18,17 +18,16 @@ class Solution {
             if(kthNode != null){
                 ListNode groupStart = lastGroupEnd.next;
                 ListNode nextGroupStart = kthNode.next;
-                
-                //reverse
+
                 reverseGroup(groupStart, kthNode);
-                
-                //relink
+
                 lastGroupEnd.next = kthNode;
                 groupStart.next = nextGroupStart;
                 lastGroupEnd = groupStart;
             }
             else break;
         }
+
         return dummy.next;
     }
 
@@ -37,7 +36,6 @@ class Solution {
             start = start.next;
             k--;
         }
-
         return start;
     }
 
