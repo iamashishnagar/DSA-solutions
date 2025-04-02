@@ -2,8 +2,8 @@ class LRUCache {
     class Node{
         int key;
         int value;
-        Node next;
         Node prev;
+        Node next;
 
         Node(int key, int value){
             this.key = key;
@@ -11,44 +11,44 @@ class LRUCache {
         }
     }
 
-    Map<Integer, Node> cacheMap;
-    int capacity;
-    Node head, tail;
+    private int capacity;
+    private Map<Integer, Node> cache;
+    private Node head, tail;
 
     public LRUCache(int capacity) {
         this.capacity = capacity;
-        cacheMap = new HashMap<>();
-        head = new Node(0, 0);
-        tail = new Node(0, 0);
+        this.cache = new HashMap<>();
+        this.head = new Node(0, 0);
+        this.tail = new Node(0, 0);
 
         head.next = tail;
-        tail.prev = head;        
+        tail.prev = head;
     }
     
     public int get(int key) {
-        if(!cacheMap.containsKey(key))
+        if(!cache.containsKey(key))
             return -1;
-        
-        Node node = cacheMap.get(key);
+
+        Node node = cache.get(key);
         removeNode(node);
         addMRUNode(node);
-
         return node.value;
     }
     
     public void put(int key, int value) {
-        if(cacheMap.containsKey(key)){
-            Node oldNode = cacheMap.get(key);
-            cacheMap.remove(key);
+        if(cache.containsKey(key)){
+            Node oldNode = cache.get(key);
             removeNode(oldNode);
+            cache.remove(key);
         }
+
         Node newNode = new Node(key, value);
-        cacheMap.put(key, newNode);
+        cache.put(key, newNode);
         addMRUNode(newNode);
 
-        if(cacheMap.size() > capacity){
-            Node lru = evictLRUNode();
-            cacheMap.remove(lru.key);
+        if(cache.size() > capacity){
+            Node lruNode = evictLRUNode();
+            cache.remove(lruNode.key);
         }
     }
 
@@ -61,19 +61,17 @@ class LRUCache {
     }
 
     private void removeNode(Node node){
-        Node next = node.next;
         Node prev = node.prev;
+        Node next = node.next;
         prev.next = next;
         next.prev = prev;
     }
 
     private Node evictLRUNode(){
-        Node lru = tail.prev;
-        Node newLRU = lru.prev;
-        newLRU.next = tail;
-        tail.prev = newLRU;
-
-        return lru;
+        Node lruNode = tail.prev;
+        lruNode.prev.next = tail;
+        tail.prev = lruNode.prev;
+        return lruNode;
     }
 }
 
