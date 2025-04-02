@@ -5,8 +5,7 @@ class Solution {
         for(int i = 0; i < nums.length; i++){
             int balance = target - nums[i];
             if(map.containsKey(balance))
-                return new int[] {i, map.get(balance)};
-                
+                return new int[] {map.get(balance), i};
             map.put(nums[i], i);
         }
 
