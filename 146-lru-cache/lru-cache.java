@@ -1,25 +1,24 @@
 class LRUCache {
-    class Node{
-        int key;
-        int value;
-        Node prev;
-        Node next;
+    
+    class ListNode{
+        int key, value;
+        ListNode prev, next;
 
-        Node(int key, int value){
+        ListNode(int key, int value){
             this.key = key;
             this.value = value;
         }
     }
 
     private int capacity;
-    private Map<Integer, Node> cache;
-    private Node head, tail;
+    private Map<Integer, ListNode> cache;
+    private ListNode head, tail;
 
     public LRUCache(int capacity) {
         this.capacity = capacity;
         this.cache = new HashMap<>();
-        this.head = new Node(0, 0);
-        this.tail = new Node(0, 0);
+        this.head = new ListNode(0, 0);
+        this.tail = new ListNode(0, 0);
 
         head.next = tail;
         tail.prev = head;
@@ -28,49 +27,49 @@ class LRUCache {
     public int get(int key) {
         if(!cache.containsKey(key))
             return -1;
-
-        Node node = cache.get(key);
-        removeNode(node);
-        addMRUNode(node);
-        return node.value;
+        else{
+            ListNode node = cache.get(key);
+            removeNode(node);
+            addMRUNode(node);
+            return node.value;
+        }
     }
     
     public void put(int key, int value) {
         if(cache.containsKey(key)){
-            Node oldNode = cache.get(key);
+            ListNode oldNode = cache.get(key);
             removeNode(oldNode);
             cache.remove(key);
         }
-
-        Node newNode = new Node(key, value);
+        ListNode newNode = new ListNode(key, value);
         cache.put(key, newNode);
         addMRUNode(newNode);
 
         if(cache.size() > capacity){
-            Node lruNode = evictLRUNode();
+            ListNode lruNode = evictLRUNode();
             cache.remove(lruNode.key);
         }
     }
 
-    private void addMRUNode(Node node){
-        Node next = head.next;
-        head.next = node;
-        node.prev = head;
-        node.next = next;
-        next.prev = node;
-    }
-
-    private void removeNode(Node node){
-        Node prev = node.prev;
-        Node next = node.next;
+    private void removeNode(ListNode node){
+        ListNode prev = node.prev;
+        ListNode next = node.next;
         prev.next = next;
         next.prev = prev;
     }
 
-    private Node evictLRUNode(){
-        Node lruNode = tail.prev;
-        lruNode.prev.next = tail;
+    private void addMRUNode(ListNode node){
+        ListNode next = head.next;
+        head.next = node;
+        node.next = next;
+        node.prev = head;
+        next.prev = node;
+    }
+
+    private ListNode evictLRUNode(){
+        ListNode lruNode = tail.prev;
         tail.prev = lruNode.prev;
+        lruNode.prev.next = tail;
         return lruNode;
     }
 }
