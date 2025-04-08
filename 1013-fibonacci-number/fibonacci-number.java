@@ -3,10 +3,9 @@ class Solution {
 
     public int fib(int n) {
         if(n == 0 || n == 1) return n;
-        else if(map.containsKey(n)) return map.get(n);
+        if(map.containsKey(n)) return map.get(n);
 
-        int result = fib(n-1) + fib(n-2);
-        map.put(n, result);
-        return result;
+        map.put(n, fib(n - 1) + fib(n - 2));
+        return map.get(n);
     }
 }
