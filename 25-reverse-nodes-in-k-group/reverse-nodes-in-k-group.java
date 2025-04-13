@@ -31,22 +31,22 @@ class Solution {
         return dummy.next;
     }
 
-    private ListNode getKthNode(ListNode start, int k){
-        while(k > 0 && start != null){
-            start = start.next;
+    private ListNode getKthNode(ListNode head, int k){
+        while(k > 0 && head != null){
+            head = head.next;
             k--;
         }
-        return start;
+
+        return head;
     }
 
-    private void reverseGroup(ListNode start, ListNode end){
+    private void reverseGroup(ListNode head, ListNode tail){
         ListNode prev = null;
-
-        while(prev != end){
-            ListNode next = start.next;
-            start.next = prev;
-            prev = start;
-            start = next;
+        while(prev != tail){
+            ListNode next = head.next;
+            head.next = prev;
+            prev = head;
+            head = next;
         }
     }
 }
