@@ -1,34 +1,29 @@
 class Solution {
-    private int m, n;
-    private int[][] directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+    int[][] directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
 
     public int numIslands(char[][] grid) {
-        m = grid.length;
-        n = grid[0].length;
-        if(m == 0) return 0;
-        int result = 0;
-
-        for(int i = 0; i < m; i++){
-            for(int j = 0; j < n; j++){
+        int count = 0;
+        for(int i = 0; i < grid.length; i++){
+            for(int j = 0; j < grid[0].length; j++){
                 if(grid[i][j] == '1'){
-                    result++;
-                    bfs(i, j, grid);
+                    countIsland(i, j, grid);
+                    count++;
                 }
             }
         }
-
-        return result;
+        return count;
     }
 
-    private void bfs(int i, int j, char[][] grid){
-        if(i < 0 || i == m || j < 0 || j == n || grid[i][j] == '0')
+    private void countIsland(int i, int j, char[][] grid){
+        if(i < 0 || j < 0 || i == grid.length || j == grid[0].length || grid[i][j] == '0')
             return;
         
-        if(grid[i][j] == '1')
-            grid[i][j] = '0';
-        
+        grid[i][j] = '0';
+
         for(int[] dir : directions){
-            bfs(i + dir[0], j + dir[1], grid);
+            int row = i + dir[0];
+            int col = j + dir[1];
+            countIsland(row, col, grid);
         }
     }
 }
