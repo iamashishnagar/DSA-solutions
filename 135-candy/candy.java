@@ -17,10 +17,6 @@ class Solution {
                 candies[i] = Math.max(candies[i], candies[i + 1] + 1);
         }
 
-        int numberOfCandies = 0;
-        for(int candy : candies)
-            numberOfCandies += candy;
-        
-        return numberOfCandies;
+        return Arrays.stream(candies).sum();
     }
 }
