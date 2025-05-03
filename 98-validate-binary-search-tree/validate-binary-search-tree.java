@@ -18,12 +18,12 @@ class Solution {
         return validate(root, null, null);
     }
 
-    private boolean validate(TreeNode node, Integer min, Integer max){
+    private boolean validate(TreeNode node, TreeNode min, TreeNode max){
         if(node == null) return true;
 
-        if((min != null && min >= node.val) || (max != null && max <= node.val))
+        if((min != null && min.val >= node.val) || (max != null && max.val <= node.val))
             return false;
 
-        return validate(node.left, min, node.val) && validate(node.right, node.val, max);
+        return validate(node.left, min, node) && validate(node.right, node, max);
     }
 }
