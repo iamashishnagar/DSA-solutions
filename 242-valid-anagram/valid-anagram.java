@@ -1,21 +1,18 @@
 class Solution {
     public boolean isAnagram(String s, String t) {
         if(s.length() != t.length()) return false;
-        int[] sCount = new int[26];
-        int[] tCount = new int[26];
+
+        int[] count = new int[256];
+
         for(int i = 0; i < s.length(); i++){
-            sCount[s.charAt(i) - 'a']++;
-            tCount[t.charAt(i) - 'a']++;
+            count[s.charAt(i)]++;
+            count[t.charAt(i)]--;
         }
 
-        return isValidAnagram(sCount, tCount);
-    }
+        for(int i : count){
+            if(i != 0) return false;
+        }
 
-    private boolean isValidAnagram(int[] sCount, int[] tCount){
-        for(int i = 0; i < 26; i++)
-            if(sCount[i] != tCount[i])
-                return false;
-        
         return true;
     }
 }
