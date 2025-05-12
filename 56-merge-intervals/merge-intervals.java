@@ -15,6 +15,12 @@ class Solution {
                 result.add(new int[] {start, end});
         }
 
-        return result.toArray(new int[result.size()][2]);
+        int[][] merged = new int[result.size()][2];
+        for(int i = 0; i < result.size(); i++){
+            merged[i][0] = result.get(i)[0];
+            merged[i][1] = result.get(i)[1];
+        }
+
+        return merged;
     }
 }
