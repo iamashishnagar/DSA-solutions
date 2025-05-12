@@ -6,7 +6,7 @@ class Solution {
     }
 
     private void backtrack(List<String> result, StringBuilder current, int open, int close, int n){
-        if(current.length() == 2 * n){
+        if(open == n && close == open){
             result.add(current.toString());
             return;
         }
