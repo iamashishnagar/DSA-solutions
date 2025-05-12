@@ -1,7 +1,7 @@
 class Solution {
     public int[][] merge(int[][] intervals) {
-        Arrays.sort(intervals, Comparator.comparingInt(a -> a[0]));
         List<int[]> result = new ArrayList<>();
+        Arrays.sort(intervals, Comparator.comparingInt(row -> row[0]));
         result.add(new int[] {intervals[0][0], intervals[0][1]});
 
         for(int[] interval : intervals){
