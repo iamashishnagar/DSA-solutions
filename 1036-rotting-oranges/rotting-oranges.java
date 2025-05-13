@@ -6,9 +6,10 @@ class Solution {
 
         for(int i = 0; i < grid.length; i++){
             for(int j = 0; j < grid[0].length; j++){
-                if(grid[i][j] == 2)
+                int cell = grid[i][j];
+                if(cell == 2)
                     queue.offer(new int[] {i, j});
-                else if(grid[i][j] == 1)
+                else if(cell == 1)
                     freshCount++;
             }
         }
@@ -19,7 +20,7 @@ class Solution {
 
         while(!queue.isEmpty()){
             int size = queue.size();
-            boolean rotted = false;
+            boolean rotten = false;
 
             while(size > 0){
                 int[] cell = queue.poll();
@@ -31,14 +32,14 @@ class Solution {
                         grid[row][col] = 2;
                         queue.offer(new int[] {row, col});
                         freshCount--;
-                        rotted = true;
+                        rotten = true;
                     }
                 }
 
                 size--;
             }
 
-            if(rotted) minutes++;
+            if(rotten) minutes++;
         }
 
         return freshCount == 0 ? minutes : -1;
