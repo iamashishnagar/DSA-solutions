@@ -16,7 +16,7 @@ class Node {
 class Solution {
     public Node copyRandomList(Node head) {
         if(head == null) return null;
-        //interweave new copy with val and next
+        //interweave
         Node current = head;
         while(current != null){
             Node newNode = new Node(current.val);
@@ -28,13 +28,14 @@ class Solution {
         //insert random
         current = head;
         while(current != null){
-            if(current.random != null)
+            if(current.random != null){
                 current.next.random = current.random.next;
+            }
             current = current.next.next;
         }
         //split
         current = head;
-        Node copiedHead = head.next;
+        Node copiedNode = current.next;
         while(current != null){
             Node copied = current.next;
             Node oldNext = copied.next;
@@ -45,7 +46,7 @@ class Solution {
             if(oldNext != null)
                 copied.next = oldNext.next;
         }
-        //return copied head
-        return copiedHead;
+        //return
+        return copiedNode;
     }
 }
