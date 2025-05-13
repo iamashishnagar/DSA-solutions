@@ -3,27 +3,30 @@ class Solution {
     Set<Integer> visiting = new HashSet<>();
 
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        for(int i = 0; i < numCourses; i++)
+        for(int i = 0; i < numCourses; i++){
             preMap.put(i, new ArrayList<>());
+        }
 
-        for(int[] pre : prerequisites)
+        for(int[] pre : prerequisites){
             preMap.get(pre[0]).add(pre[1]);
-        
-        for(int i = 0; i < numCourses; i++)
-            if(!canFinishCourse(i)) 
+        }
+
+        for(int i = 0; i < numCourses; i++){
+            if(!canFinishAllCourses(i))
                 return false;
-        
+        }
+
         return true;
     }
 
-    private boolean canFinishCourse(int course){
+    private boolean canFinishAllCourses(int course){
         if(visiting.contains(course)) return false;
         if(preMap.get(course).isEmpty()) return true;
 
         visiting.add(course);
-
+        
         for(int pre : preMap.get(course)){
-            if(!canFinishCourse(pre))
+            if(!canFinishAllCourses(pre))
                 return false;
         }
 
