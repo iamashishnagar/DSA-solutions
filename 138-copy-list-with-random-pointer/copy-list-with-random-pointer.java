@@ -16,14 +16,15 @@ class Node {
 class Solution {
     public Node copyRandomList(Node head) {
         if(head == null) return null;
-        //interweave
+        
         Node current = head;
+        //interweave
         while(current != null){
+            Node next = current.next;
             Node newNode = new Node(current.val);
-            Node oldNextNode = current.next;
             current.next = newNode;
-            newNode.next = oldNextNode;
-            current = oldNextNode;
+            newNode.next = next;
+            current = next;
         }
         //insert random
         current = head;
@@ -35,18 +36,17 @@ class Solution {
         }
         //split
         current = head;
-        Node copiedNode = current.next;
+        Node copiedHead = current.next;
         while(current != null){
-            Node copied = current.next;
-            Node oldNext = copied.next;
-
-            current.next = oldNext;
-            current = oldNext;
-
-            if(oldNext != null)
-                copied.next = oldNext.next;
+            Node copiedNode = current.next;
+            Node originalNext = copiedNode.next;
+            current.next = originalNext;
+            current = originalNext;
+            if(originalNext != null)
+                copiedNode.next = originalNext.next;
         }
         //return
-        return copiedNode;
+        return copiedHead;
+        
     }
 }
